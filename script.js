@@ -1,44 +1,4 @@
-
-// const sneakerImages = [
-//     {
-//         name: 'sneaker1',
-//         img1: '../images/image-product-1.jpg',
-//         img1small: '../images/image-product-1-small.jpg'
-//     },
-//     {
-//         name: 'sneaker2',
-//         img2: '../images/image-product-2.jpg',
-//         img2small: '../images/image-product-2-small.jpg'
-//     },
-//     {
-//         name: 'sneaker3',
-//         img3: '../images/image-product-3.jpg',
-//         img3small: '../images/image-product-3-small.jpg'
-//     },
-//     {
-//         name: 'sneaker4',
-//         img4: '../images/image-product-4.jpg',
-//         img4small: '../images/image-product-4-small.jpg'
-//     }
-// ]
-//  const imagesContainer = document.querySelector('.images')
-//  sneakerImages.array.map(item => {
-//     const imagesItem = document.createElement('img')
-//     imagesItem.classList.add('sneaker')
-//     imagesItem.innerHTML = `<div>
-//     <img src="${item.img1} />
-//     <img src="${item.img1small} />
-//     <img src="${item.img2} />
-//     <img src="${item.img2small} />
-//     <img src="${item.img3} />
-//     <img src="${item.img3small} />
-//     <img src="${item.img4} />
-//     <img src="${item.img4small} />
-//     </div>`
-//     imagesContainer.appendChild(imagesItem)
-
-//  });
-
+// Company Information
 
 const companyItems =[
     {
@@ -65,3 +25,145 @@ companyItems.forEach(element => {
     </div>`    
     company.appendChild(companyItem)
 });
+
+
+// Company Images
+
+const smallImages = document.querySelectorAll('.small-image');
+const largeImage = document.querySelector('.large-image');
+
+smallImages.forEach((smallImage) => {
+  smallImage.addEventListener('click', () => {
+    const largeImageUrl = smallImage.getAttribute('data-large-url');
+    largeImage.src = largeImageUrl;
+    largeImage.style.display = 'block';
+  });
+});
+
+
+
+const lightbox = document.querySelector('.lightbox')
+const closeButton = document.querySelector('.close-btn')
+const lightboxImage = document.querySelector('.lightbox-images')
+const openButton = document.querySelector('.large-image ')
+
+largeImage.addEventListener('click', () => {
+    lightboxImage.src = largeImage.src;
+    lightbox.style.display = 'block';
+  });
+// openButton.addEventListener('click', () => {
+//     lightbox.style.display = 'block';
+// })
+closeButton.addEventListener('click', () => {
+    lightbox.style.display = 'none';
+});
+
+
+
+// const addButton = document.querySelector('.plus')
+// const minusButton = document.querySelector('.minus')
+// const number = document.querySelector('.number')
+
+// let num = 0;
+// addButton.addEventListener('click', () =>{
+//    num++;
+//    number.textContent = num;
+// })
+
+// minusButton.addEventListener('click', () =>{
+//     if (num > 0 ){
+//     num--;
+//     number.textContent = num;
+//     }
+// });
+
+// const addToCartButton = document.querySelector('.add-to-cart')
+// const  cartButton = document.querySelector('.cart-btn')
+
+// let cart = 0;
+// addToCartButton.addEventListener('click', () =>{
+//  cart++;
+//  cartCount.textContent = cart;
+//  cartCount.style.display = 'inline-block';
+ 
+// });
+
+// cartButton.style.position = 'relative';
+// cartButton.style.display = 'inline-block';
+
+// const cartCount = document.createElement('span');
+// cartCount.textContent = cart;
+// cartCount.style.position = 'absolute';
+// cartCount.style.top = '-10px';
+// cartCount.style.right = '-10px';
+// cartCount.style.backgroundColor = 'red';
+// cartCount.style.color = 'white';
+// cartCount.style.borderRadius = '50%';
+// cartCount.style.padding = '4px';
+// cartCount.style.fontSize = '12px';
+
+// cartButton.appendChild(cartCount);
+// cartCount.style.display = 'none';
+
+const addButton = document.querySelector('.plus');
+const minusButton = document.querySelector('.minus');
+const number = document.querySelector('.number');
+
+let num = 0;
+addButton.addEventListener('click', () => {
+  num++;
+  number.textContent = num;
+});
+
+minusButton.addEventListener('click', () => {
+  if (num > 0) {
+    num--;
+    number.textContent = num;
+  }
+});
+
+const addToCartButton = document.querySelector('.add-to-cart');
+const cartButton = document.querySelector('.cart-btn');
+
+let cart = 0;
+addToCartButton.addEventListener('click', () => {
+  const selectedNumber = parseInt(number.textContent);
+  if (!isNaN(selectedNumber) && selectedNumber > 0) {
+    cart += selectedNumber;
+    cartCount.textContent = cart;
+    cartCount.style.display = 'inline-block';
+  }
+});
+
+cartButton.style.position = 'relative';
+cartButton.style.display = 'inline-block';
+
+const cartCount = document.createElement('span');
+cartCount.style.position = 'absolute';
+cartCount.style.top = '-10px';
+cartCount.style.right = '-10px';
+cartCount.style.backgroundColor = 'red';
+cartCount.style.color = 'white';
+cartCount.style.borderRadius = '50%';
+cartCount.style.padding = '4px';
+cartCount.style.fontSize = '12px';
+
+cartButton.appendChild(cartCount);
+cartCount.style.display = 'none';
+
+const cartContent = document.querySelector('.cart-content');
+cartButton.addEventListener('click', () => {
+    if (cart === 0) {
+      cartContent.textContent = 'Your cart is empty';
+    } else {
+        
+      cartContent.textContent = 'Cart  ' + cart + ' items';
+    }
+    cartContent.style.display = 'block';
+});
+body.addEventListener('click', () => {
+    cartContent.style.display = 'none';
+})
+
+// cartContent.style.position = 'absolute';
+// cartContent.style.Margin = '1rem';
