@@ -219,27 +219,32 @@ cartButton.addEventListener('click', () => {
     const cartContent = document.querySelector(".cart-content");
 
     cartContent.style.display = "block";
-    cart1.textContent= 'Cart';
-    h1.textContent = 'Your cart is empty';
-    cartContent.appendChild(h1);
-    cartContent.appendChild(cart1);
+    const h4 = document.createElement("h4");
+    const cart2 = document.createElement("h3");
+    const hr = document.createElement("hr")
+    hr.classList.add("cart-hr");
+    h4.classList.add("empty1");
+    cart2.classList.add("cart-2");
+    cart2.textContent= 'Cart';
+    h4.textContent = 'Your cart is empty';
+    cartContent.appendChild(hr);
+    cartContent.appendChild(h4);
+    cartContent.appendChild(cart2)
     cartCount.style.display = "none";
-   
-
+    
+    
 })
 })
-  }
+}
 });
 
-
-
-// window.onclick = function(event) {
-//     if (event.target == cartContent) {
-//       cartContent.style.display = "none";
-//       console.log("hello")
-//     } 
-// }
-
+window.addEventListener('click', (event) => {
+    const cartContent = document.querySelector('.cart-content');
+    if (event.target === cartContent) {
+      cartContent.style.display = 'none';
+    }
+    console.log("hello!");
+  });
 
 
 
@@ -262,3 +267,21 @@ cartButton.appendChild(cartCount);
 cartCount.style.display = 'none';
 
 
+const open = document.querySelector('.mob-open');
+const close = document.querySelector('.mob-close');
+const tap = document.querySelector('.link-menu-tab');
+
+open.addEventListener('click',(e) =>{
+  e.preventDefault();
+  tap.style.display = 'block';
+  open.style.display = 'none';
+  close.style.display = 'flex';
+  
+})
+
+close.addEventListener('click',(e) =>{
+  e.preventDefault();
+  tap.style.display = 'none';
+  open.style.display = 'flex';
+  close.style.display = 'none';
+});
