@@ -68,7 +68,7 @@ closeButton.addEventListener('click', () => {
     lightbox.style.display = 'none';
 });
 
-// Close the modal when any part of the window is clicked outside the modal
+//Close the modal when any part of the window is clicked outside the modal
 // window.addEventListener('click', (event) => {
 //   if (event.target === lightbox ) {
 //     lightbox.style.display = 'none';
