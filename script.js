@@ -128,7 +128,9 @@ minusButton.addEventListener('click', () => {
 });
 
 
+
 let num = 0;
+number.textContent = num;
 addButton.addEventListener('click', () => {
   num++;
   number.textContent = num;
@@ -136,7 +138,7 @@ addButton.addEventListener('click', () => {
 
  //Cart Item
 
-const cartItems = [];
+let cartItems = [];
 
 const addToCartButton = document.querySelector('.add-to-cart');
 const cartButton = document.querySelector('.cart-btn');
@@ -161,7 +163,8 @@ addToCartButton.addEventListener('click', () => {
     };
     cartItems.push(item);
   }
-  
+  number.textContent = 0;
+
 });
 
 // Rendering the cart items when the user clicks on the cart button
@@ -169,6 +172,9 @@ const h1 = document.createElement("h1");
 const cart1 = document.createElement("h2");
 h1.classList.add("empty");
 cart1.classList.add("cart-1");
+
+
+
 cartButton.addEventListener('click', () => {
   if (cartItems.length <= 0) {
     cart1.textContent= 'Cart';
@@ -185,6 +191,7 @@ cartButton.addEventListener('click', () => {
         const cartItem = document.createElement('div');
         cartItem.classList.add('cart-item');
         cartItem.innerHTML = `
+
           <h2>${element.name}</h2>
       
           <div class="title">
@@ -208,12 +215,15 @@ cartButton.addEventListener('click', () => {
         cartContent.appendChild(cartItem);
       });
       cartContent.style.display = 'block';
+    
 
     const deleteButton = document.querySelectorAll('.delete');
     deleteButton.forEach((deleteButton) => {
     deleteButton.addEventListener('click',() => {
     const cartItem = deleteButton.closest('.cart-item');
     cartItem.remove();
+
+
   
     console.log(deleteButton );
     const cartContent = document.querySelector(".cart-content");
@@ -231,6 +241,14 @@ cartButton.addEventListener('click', () => {
     cartContent.appendChild(h4);
     cartContent.appendChild(cart2)
     cartCount.style.display = "none";
+
+    cartItems = [];
+    cartCount.textContent = 0;
+
+
+    cart1.style.display= "none";
+    h1.style.display = "none";
+    
     
     
 })
@@ -238,12 +256,29 @@ cartButton.addEventListener('click', () => {
 }
 });
 
+
+
+let isCartOpen = false;
+
+cartButton.addEventListener('click', () => {
+  if (isCartOpen) {
+    // Cart is currently open, close it
+    cartContent.style.display = 'none';
+    isCartOpen = false;
+  } else {
+    // Cart is currently closed, open it
+    cartContent.style.display = 'block';
+    isCartOpen = true;
+  }
+});
+
+
 window.addEventListener('click', (event) => {
     const cartContent = document.querySelector('.cart-content');
     if (event.target === cartContent) {
-      cartContent.style.display = 'none';
+        cartContent.style.display = "none";
     }
-    console.log("hello!");
+    
   });
 
 
@@ -267,6 +302,7 @@ cartButton.appendChild(cartCount);
 cartCount.style.display = 'none';
 
 
+// mobile dievice menu-bar
 const open = document.querySelector('.mob-open');
 const close = document.querySelector('.mob-close');
 const tap = document.querySelector('.link-menu-tab');

@@ -118,6 +118,7 @@ hr{
     margin-left: 2rem;
     font-size: 16px;
     font-weight: 700;
+    z-index: 5;
 }
 
 .cart-item .small img{
@@ -212,7 +213,7 @@ hr{
 }
 .cart-content h2{
     position: relative;
-    top: 61rem;
+    /* top: 61rem; */
 }
 .cart-content .empty1{
     font-size: 16px;
@@ -636,7 +637,7 @@ hr{
         position: absolute;
         margin-top: 20rem;
         width: 327px;
-        left: 2rem;
+        left: 1.5rem;
     }
     .company-items h3{
         width: 327px;  
@@ -656,7 +657,8 @@ hr{
     .container-btns{
         display: block;
         margin-top: 2rem;
-        margin-bottom: 2rem;
+        margin-bottom: 0rem;
+        /* margin-right: 4rem; */
     } 
     .btn {
         width: 327px;
