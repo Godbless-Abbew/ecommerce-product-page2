@@ -69,11 +69,11 @@ closeButton.addEventListener('click', () => {
 });
 
 //Close the modal when any part of the window is clicked outside the modal
-// window.addEventListener('click', (event) => {
-//   if (event.target === lightbox ) {
-//     lightbox.style.display = 'none';
-//   }
-// });
+window.addEventListener('click', (event) => {
+  if (event.target === lightbox ) {
+    lightbox.style.display = 'none';
+  }
+});
 
 
 
@@ -150,8 +150,7 @@ addToCartButton.addEventListener('click', () => {
     cart += selectedNumber;
     cartCount.textContent = cart;
     cartCount.style.display = 'inline-block';
-
-  
+    
     const item = {
         name: 'Cart',
         title: 'Fall Limited Edition Sneakers',
@@ -162,7 +161,8 @@ addToCartButton.addEventListener('click', () => {
         description: 'Checkout'
     };
     cartItems.push(item);
-  }
+}
+
   number.textContent = 0;
 
 });
@@ -222,7 +222,7 @@ cartButton.addEventListener('click', () => {
     deleteButton.addEventListener('click',() => {
     const cartItem = deleteButton.closest('.cart-item');
     cartItem.remove();
-
+    
 
   
     console.log(deleteButton );
@@ -243,11 +243,13 @@ cartButton.addEventListener('click', () => {
     cartCount.style.display = "none";
 
     cartItems = [];
-    cartCount.textContent = 0;
+    cart -= num;
+    num = 0;
+    cartCount.textContent = cart;
 
 
     cart1.style.display= "none";
-    h1.style.display = "none";
+    h1.style.display = "none"
     
     
     
@@ -301,6 +303,16 @@ cartCount.style.fontSize = '12px';
 cartButton.appendChild(cartCount);
 cartCount.style.display = 'none';
 
+// function updateCartCount() {
+//     const cartCountElement = document.querySelector('.cart-count');
+//     cartCountElement.textContent = cartCount;
+//     if (cartCount > 0) {
+//         cartCountElement.style.display = 'inline-block';
+//     }
+//     else {
+//         cartCountElement.style.display = 'none';
+//     }
+// }
 
 // mobile dievice menu-bar
 const open = document.querySelector('.mob-open');
