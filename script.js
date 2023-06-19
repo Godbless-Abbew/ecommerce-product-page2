@@ -130,11 +130,18 @@ minusButton.addEventListener('click', () => {
 
 
 let num = 0;
-number.textContent = num;
+const addNumber = () => {
+    number.textContent = num;
 addButton.addEventListener('click', () => {
-  num++;
-  number.textContent = num;
+//   num + 1;
+
+number.textContent = num++;
+
 });
+}
+addNumber();
+
+
 
  //Cart Item
 
@@ -143,11 +150,30 @@ let cartItems = [];
 const addToCartButton = document.querySelector('.add-to-cart');
 const cartButton = document.querySelector('.cart-btn');
 
+// Span at the top right corner of Cart button
+
+cartButton.style.position = 'relative';
+cartButton.style.display = 'inline-block';
+
+const cartCount = document.createElement('span');
+cartCount.style.position = 'absolute';
+cartCount.style.top = '-10px';
+cartCount.style.right = '-10px';
+cartCount.style.backgroundColor = 'red';
+cartCount.style.color = 'white';
+cartCount.style.borderRadius = '50%';
+cartCount.style.padding = '4px';
+cartCount.style.fontSize = '12px';
+
+cartButton.appendChild(cartCount);
+cartCount.style.display = 'none';
+
 let cart = 0;
+
 addToCartButton.addEventListener('click', () => {
   const selectedNumber = parseInt(number.textContent);
-  if (!isNaN(selectedNumber) && selectedNumber > 0) {
-    cart += selectedNumber;
+  if ( selectedNumber > 0) {
+     cart += selectedNumber;
     cartCount.textContent = cart;
     cartCount.style.display = 'inline-block';
     
@@ -160,10 +186,33 @@ addToCartButton.addEventListener('click', () => {
         svg : './images/icon-delete.svg',
         description: 'Checkout'
     };
-    cartItems.push(item);
+    
+    // if(cart  > 1){
+    //         cartItems.map(element=>{
+    //         if(element.title === item.title){ 
+    //             console.log('hello')
+    //             // selectedNumber += 1;
+    //             // cartItems.push(item.actualPrice);
+    //         }
+    //         else{
+    //             cartItems.push(item);
+    //         }
+                
+    //     })
+    //     }else{
+    //         console.log('more than 1')
+    //     }
+        
+        cartItems.push(item);
+
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+}
+if(num > 0) {
+    num = 0
+    
+  number.textContent = num;
 }
 
-  number.textContent = 0;
 
 });
 
@@ -173,8 +222,6 @@ const cart1 = document.createElement("h2");
 h1.classList.add("empty");
 cart1.classList.add("cart-1");
 
-
-
 cartButton.addEventListener('click', () => {
   if (cartItems.length <= 0) {
     cart1.textContent= 'Cart';
@@ -183,9 +230,9 @@ cartButton.addEventListener('click', () => {
     cartContent.appendChild(cart1)
     // cartContent.textContent = 'Your cart is empty';
     cartContent.style.display = 'block';
-    console.log(cartContent)
   } else {
     cartContent.textContent = '';
+
     
       cartItems.forEach((element) => {
         const cartItem = document.createElement('div');
@@ -213,7 +260,16 @@ cartButton.addEventListener('click', () => {
           <button>${element.description}</button>
         `;
         cartContent.appendChild(cartItem);
+
+        // Retrieve the cart items from local storage
+        const storedCartItems = JSON.parse(localStorage.getItem('cartItems'));
+
+        if (storedCartItems && storedCartItems.length > 0) {
+            cartItems = storedCartItems;
+        }
+        
       });
+      
       cartContent.style.display = 'block';
     
 
@@ -242,6 +298,16 @@ cartButton.addEventListener('click', () => {
     cartContent.appendChild(cart2)
     cartCount.style.display = "none";
 
+     // Remove the item from the cartItems array
+    const itemIndex = cartItems.findIndex((element) => element.title === item.title);
+  if (itemIndex !== -1) {
+    cartItems.removeItem();
+  }
+
+  // Update the cart items in local storage
+  localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+
     cartItems = [];
     cart -= num;
     num = 0;
@@ -257,7 +323,21 @@ cartButton.addEventListener('click', () => {
 })
 }
 });
+ 
+// Get the stored cart items from local storage
+let storedCartItems = JSON.parse(localStorage.getItem('cartItems'));
 
+// Calculate the initial cart count
+// cartCount = 0;
+// if (storedCartItems && storedCartItems.length > 0) {
+//   cartCount = storedCartItems.reduce((count, items) => count + parseInt(items.price.split('x')[1]), 0);
+// }
+
+// // Display the initial cart count
+// cartCount.textContent = cartCount;
+// if (cartCount > 0) {
+//   cartCount.style.display = 'inline-block';
+// }
 
 
 let isCartOpen = false;
@@ -285,34 +365,9 @@ window.addEventListener('click', (event) => {
 
 
 
-// Span at the top right corner of Cart button
 
-cartButton.style.position = 'relative';
-cartButton.style.display = 'inline-block';
 
-const cartCount = document.createElement('span');
-cartCount.style.position = 'absolute';
-cartCount.style.top = '-10px';
-cartCount.style.right = '-10px';
-cartCount.style.backgroundColor = 'red';
-cartCount.style.color = 'white';
-cartCount.style.borderRadius = '50%';
-cartCount.style.padding = '4px';
-cartCount.style.fontSize = '12px';
 
-cartButton.appendChild(cartCount);
-cartCount.style.display = 'none';
-
-// function updateCartCount() {
-//     const cartCountElement = document.querySelector('.cart-count');
-//     cartCountElement.textContent = cartCount;
-//     if (cartCount > 0) {
-//         cartCountElement.style.display = 'inline-block';
-//     }
-//     else {
-//         cartCountElement.style.display = 'none';
-//     }
-// }
 
 // mobile dievice menu-bar
 const open = document.querySelector('.mob-open');
