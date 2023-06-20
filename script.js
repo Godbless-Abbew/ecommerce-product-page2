@@ -155,7 +155,7 @@ const cartButton = document.querySelector('.cart-btn');
 cartButton.style.position = 'relative';
 cartButton.style.display = 'inline-block';
 
-const cartCount = document.createElement('span');
+let cartCount = document.createElement('span');
 cartCount.style.position = 'absolute';
 cartCount.style.top = '-10px';
 cartCount.style.right = '-10px';
@@ -171,7 +171,7 @@ cartCount.style.display = 'none';
 let cart = 0;
 
 addToCartButton.addEventListener('click', () => {
-  const selectedNumber = parseInt(number.textContent);
+  let selectedNumber = parseInt(number.textContent);
   if ( selectedNumber > 0) {
      cart += selectedNumber;
     cartCount.textContent = cart;
@@ -191,18 +191,20 @@ addToCartButton.addEventListener('click', () => {
             cartItems.map(element=>{
             if(element.title === item.title){ 
                 console.log('hello')
-                // selectedNumber += 1;
+                cartCount = selectedNumber;
                 // cartItems.push(item.actualPrice);
+
+                cartItems.pop(item);
             }
-            else{
-                cartItems.push(item);
-            }
+            // else{
+            //     cartItems.push(item);
+            // }
                 
         })
         }else{
             console.log('more than 1')
-            cartItems.push(item);
         }
+        cartItems.push(item);
         
 }
 if(num > 0) {
