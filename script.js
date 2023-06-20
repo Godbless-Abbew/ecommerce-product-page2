@@ -155,7 +155,7 @@ const cartButton = document.querySelector('.cart-btn');
 cartButton.style.position = 'relative';
 cartButton.style.display = 'inline-block';
 
-let cartCount = document.createElement('span');
+const cartCount = document.createElement('span');
 cartCount.style.position = 'absolute';
 cartCount.style.top = '-10px';
 cartCount.style.right = '-10px';
@@ -191,9 +191,9 @@ addToCartButton.addEventListener('click', () => {
             cartItems.map(element=>{
             if(element.title === item.title){ 
                 console.log('hello')
-                cartCount = selectedNumber;
+                cart = selectedNumber;
                 // cartItems.push(item.actualPrice);
-
+                console.log(cart)
                 cartItems.pop(item);
             }
             // else{
