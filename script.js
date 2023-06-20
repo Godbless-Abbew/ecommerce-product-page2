@@ -187,25 +187,23 @@ addToCartButton.addEventListener('click', () => {
         description: 'Checkout'
     };
     
-    // if(cart  > 1){
-    //         cartItems.map(element=>{
-    //         if(element.title === item.title){ 
-    //             console.log('hello')
-    //             // selectedNumber += 1;
-    //             // cartItems.push(item.actualPrice);
-    //         }
-    //         else{
-    //             cartItems.push(item);
-    //         }
+    if(cart  > 1){
+            cartItems.map(element=>{
+            if(element.title === item.title){ 
+                console.log('hello')
+                // selectedNumber += 1;
+                // cartItems.push(item.actualPrice);
+            }
+            else{
+                cartItems.push(item);
+            }
                 
-    //     })
-    //     }else{
-    //         console.log('more than 1')
-    //     }
+        })
+        }else{
+            console.log('more than 1')
+            cartItems.push(item);
+        }
         
-        cartItems.push(item);
-
-        localStorage.setItem('cartItems', JSON.stringify(cartItems));
 }
 if(num > 0) {
     num = 0
@@ -298,14 +296,14 @@ cartButton.addEventListener('click', () => {
     cartContent.appendChild(cart2)
     cartCount.style.display = "none";
 
-     // Remove the item from the cartItems array
-    const itemIndex = cartItems.findIndex((element) => element.title === item.title);
-  if (itemIndex !== -1) {
-    cartItems.removeItem();
-  }
+//      // Remove the item from the cartItems array
+//     const itemIndex = cartItems.findIndex((element) => element.title === item.title);
+//   if (itemIndex !== -1) {
+//     cartItems.splice(itemIndex, 1);
+//   }
 
-  // Update the cart items in local storage
-  localStorage.setItem('cartItems', JSON.stringify(cartItems));
+//   // Update the cart items in local storage
+//   localStorage.setItem('cartItems', JSON.stringify(cartItems));
 
 
     cartItems = [];
@@ -323,21 +321,7 @@ cartButton.addEventListener('click', () => {
 })
 }
 });
- 
-// Get the stored cart items from local storage
-let storedCartItems = JSON.parse(localStorage.getItem('cartItems'));
 
-// Calculate the initial cart count
-// cartCount = 0;
-// if (storedCartItems && storedCartItems.length > 0) {
-//   cartCount = storedCartItems.reduce((count, items) => count + parseInt(items.price.split('x')[1]), 0);
-// }
-
-// // Display the initial cart count
-// cartCount.textContent = cartCount;
-// if (cartCount > 0) {
-//   cartCount.style.display = 'inline-block';
-// }
 
 
 let isCartOpen = false;
@@ -367,7 +351,16 @@ window.addEventListener('click', (event) => {
 
 
 
-
+// function updateCartCount() {
+//     const cartCountElement = document.querySelector('.cart-count');
+//     cartCountElement.textContent = cartCount;
+//     if (cartCount > 0) {
+//         cartCountElement.style.display = 'inline-block';
+//     }
+//     else {
+//         cartCountElement.style.display = 'none';
+//     }
+// }
 
 // mobile dievice menu-bar
 const open = document.querySelector('.mob-open');
