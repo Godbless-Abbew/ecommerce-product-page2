@@ -1,37 +1,36 @@
-const smallImages = document.querySelectorAll('.small-image');
-const modalSmallImages = document.querySelectorAll('.small-img');
-const largeImage = document.querySelector('.large-image');
-const modalImage = document.querySelector('.large-img');
-const cartContent = document.querySelector('.cart-content');
-const cartContentclose = document.querySelector('.close-button-1');
-const lightbox = document.querySelector('.lightbox')
-const closeButton = document.querySelector('.close-button')
-const lightboxImage = document.querySelector('.lightbox-images')
-const openButton = document.querySelector('.large-image ')
-const previousButton = document.querySelector('.previous-button')
-const nextButton = document.querySelector('.next-button')
-const addButton = document.querySelector('.plus');
-const minusButton = document.querySelector('.minus');
-const number = document.querySelector('.number');
-
-
+const smallImages = document.querySelectorAll(".small-image");
+const modalSmallImages = document.querySelectorAll(".small-img");
+const largeImage = document.querySelector(".large-image");
+const modalImage = document.querySelector(".large-img");
+const cartContent = document.querySelector(".cart-content");
+const cartContentclose = document.querySelector(".close-button-1");
+const lightbox = document.querySelector(".lightbox");
+const closeButton = document.querySelector(".close-button");
+const lightboxImage = document.querySelector(".lightbox-images");
+const openButton = document.querySelector(".large-image ");
+const previousButton = document.querySelector(".previous-button");
+const nextButton = document.querySelector(".next-button");
+const addButton = document.querySelector(".plus");
+const minusButton = document.querySelector(".minus");
+const number = document.querySelector(".number");
 
 // Company Information
-const companyItems =[
-    {
-        name: 'Sneaker Company',
-        title: 'Fall Limited Edition Sneakers',
-        description: 'These low-profile sneakers are your perfect casual wear companion. Featuring a durable rubber outer sole, they’ll withstand everything the weather can offer.',
-        price: '$125.00',
-        percentage: '50%',
-        discount: '$250.00'
-    }
-]
-const company = document.querySelector('.company-items')
-companyItems.forEach(element => {
-    const companyItem = document.createElement('div')
-    companyItem.classList.add('company-item')
-    companyItem.innerHTML = `<div>
+const companyItems = [
+  {
+    name: "Sneaker Company",
+    title: "Fall Limited Edition Sneakers",
+    description:
+      "These low-profile sneakers are your perfect casual wear companion. Featuring a durable rubber outer sole, they’ll withstand everything the weather can offer.",
+    price: "$125.00",
+    percentage: "50%",
+    discount: "$250.00",
+  },
+];
+const company = document.querySelector(".company-items");
+companyItems.forEach((element) => {
+  const companyItem = document.createElement("div");
+  companyItem.classList.add("company-item");
+  companyItem.innerHTML = `<div>
     <h2>${element.name}</h2>
     <h3>${element.title}</h3>
     <h4>${element.description}</h4>
@@ -39,181 +38,157 @@ companyItems.forEach(element => {
     <p>${element.price}<span>${element.percentage}</span></p>
     <h5>${element.discount}</h5>
     </div>
-    </div>`    
-    company.appendChild(companyItem)
+    </div>`;
+  company.appendChild(companyItem);
 });
-
 
 // Company Images
 
-
-
 smallImages.forEach((smallImage) => {
-  smallImage.addEventListener('click', () => {
-    const largeImageUrl = smallImage.getAttribute('data-large-url');
+  smallImage.addEventListener("click", () => {
+    const largeImageUrl = smallImage.getAttribute("data-large-url");
     largeImage.src = largeImageUrl;
-    largeImage.style.display = 'block';
+    largeImage.style.display = "block";
   });
 });
-
 
 //Modal state
 
-
-largeImage.addEventListener('click', () => {
-    lightboxImage.src = largeImage.src;
-    lightbox.style.display = 'block';
-  });
-closeButton.addEventListener('click', () => {
-    lightbox.style.display = 'none';
+largeImage.addEventListener("click", () => {
+  lightboxImage.src = largeImage.src;
+  lightbox.style.display = "block";
+});
+closeButton.addEventListener("click", () => {
+  lightbox.style.display = "none";
 });
 
 //Close the modal when any part of the window is clicked outside the modal
-window.addEventListener('click', (event) => {
-  if (event.target === lightbox ) {
-    lightbox.style.display = 'none';
+window.addEventListener("click", (event) => {
+  if (event.target === lightbox) {
+    lightbox.style.display = "none";
   }
 });
 
-
-
 //onclick
 
+// Store the current index of the large image
+let currentImageIndex = 0;
 
+// Add click event listeners to the previous and next buttons
+previousButton.addEventListener("click", showPreviousImage);
+nextButton.addEventListener("click", showNextImage);
 
-  // Store the current index of the large image
-  let currentImageIndex = 0;
+// Add click event listeners to each small image
+modalSmallImages.forEach((smallImage, index) => {
+  smallImage.addEventListener("click", () => showImage(index));
+});
 
-  // Add click event listeners to the previous and next buttons
-  previousButton.addEventListener('click', showPreviousImage);
-  nextButton.addEventListener('click', showNextImage);
+// Function to show the previous image
+function showPreviousImage() {
+  currentImageIndex =
+    (currentImageIndex - 1 + modalSmallImages.length) % modalSmallImages.length;
+  updateLargeImage();
+}
 
-  // Add click event listeners to each small image
-  modalSmallImages.forEach((smallImage, index) => {
-    smallImage.addEventListener('click', () => showImage(index));
-  });
+// Function to show the next image
+function showNextImage() {
+  currentImageIndex = (currentImageIndex + 1) % modalSmallImages.length;
+  updateLargeImage();
+}
 
-  // Function to show the previous image
-  function showPreviousImage() {
-    currentImageIndex = (currentImageIndex - 1 + modalSmallImages.length) % modalSmallImages.length;
-    updateLargeImage();
-  }
+// Function to show a specific image
+function showImage(index) {
+  currentImageIndex = index;
+  updateLargeImage();
+}
 
-  // Function to show the next image
-  function showNextImage() {
-    currentImageIndex = (currentImageIndex + 1) % modalSmallImages.length;
-    updateLargeImage();
-  }
-
-  // Function to show a specific image
-  function showImage(index) {
-    currentImageIndex = index;
-    updateLargeImage();
-  }
-
-  // Function to update the large image source based on the current index
-  function updateLargeImage() {
-    const largeImageUrl = modalSmallImages[currentImageIndex].getAttribute('data-large-url1');
-    modalImage.src = largeImageUrl;
-  }
-
+// Function to update the large image source based on the current index
+function updateLargeImage() {
+  const largeImageUrl =
+    modalSmallImages[currentImageIndex].getAttribute("data-large-url1");
+  modalImage.src = largeImageUrl;
+}
 
 // Function to select the number of sneakers you want to buy
 
-minusButton.addEventListener('click', () => {
+minusButton.addEventListener("click", () => {
   if (num > 0) {
     num--;
     number.textContent = num;
   }
 });
 
-
-
 let num = 0;
 const addNumber = () => {
-    number.textContent = num;
-addButton.addEventListener('click', () => {
-//   num + 1;
-
-number.textContent = num++;
-
-});
-}
+  number.textContent = num;
+  addButton.addEventListener("click", () => {
+    number.textContent = num++;
+  });
+};
 addNumber();
 
-
-
- //Cart Item
+//Cart Item
 
 let cartItems = [];
 
-const addToCartButton = document.querySelector('.add-to-cart');
-const cartButton = document.querySelector('.cart-btn');
+const addToCartButton = document.querySelector(".add-to-cart");
+const cartButton = document.querySelector(".cart-btn");
 
 // Span at the top right corner of Cart button
 
-cartButton.style.position = 'relative';
-cartButton.style.display = 'inline-block';
+cartButton.style.position = "relative";
+cartButton.style.display = "inline-block";
 
-const cartCount = document.createElement('span');
-cartCount.style.position = 'absolute';
-cartCount.style.top = '-10px';
-cartCount.style.right = '-10px';
-cartCount.style.backgroundColor = 'red';
-cartCount.style.color = 'white';
-cartCount.style.borderRadius = '50%';
-cartCount.style.padding = '4px';
-cartCount.style.fontSize = '12px';
+const cartCount = document.createElement("span");
+cartCount.style.position = "absolute";
+cartCount.style.top = "-10px";
+cartCount.style.right = "-10px";
+cartCount.style.backgroundColor = "red";
+cartCount.style.color = "white";
+cartCount.style.borderRadius = "50%";
+cartCount.style.padding = "4px";
+cartCount.style.fontSize = "12px";
 
 cartButton.appendChild(cartCount);
-cartCount.style.display = 'none';
+cartCount.style.display = "none";
 
 let cart = 0;
 
-addToCartButton.addEventListener('click', () => {
+addToCartButton.addEventListener("click", () => {
   let selectedNumber = parseInt(number.textContent);
-  if ( selectedNumber > 0) {
-     cart += selectedNumber;
+  if (selectedNumber > 0) {
+    cart += selectedNumber;
     cartCount.textContent = cart;
-    cartCount.style.display = 'inline-block';
-    
+    cartCount.style.display = "inline-block";
+
     const item = {
-        name: 'Cart',
-        title: 'Fall Limited Edition Sneakers',
-        price: `$125.00x ${selectedNumber}`,
-        actualPrice: `$${125.00 * selectedNumber}`,
-        img : './images/image-product-1-small.jpg',
-        svg : './images/icon-delete.svg',
-        description: 'Checkout'
+      name: "Cart",
+      title: "Fall Limited Edition Sneakers",
+      price: `$125.00x ${selectedNumber}`,
+      actualPrice: `$${125.0 * selectedNumber}`,
+      img: "./images/image-product-1-small.jpg",
+      svg: "./images/icon-delete.svg",
+      description: "Checkout",
     };
-    
-    if(cart  > 1){
-            cartItems.map(element=>{
-            if(element.title === item.title){ 
-                console.log('hello')
-                cart = selectedNumber;
-                // cartItems.push(item.actualPrice);
-                console.log(cart)
-                cartItems.pop(item);
-            }
-            // else{
-            //     cartItems.push(item);
-            // }
-                
-        })
-        }else{
-            console.log('more than 1')
+
+    if (cart >= 1) {
+      cartItems.map((element) => {
+        if (element.title === item.title) {
+          cart = 0;
+          cartItems.pop(item);
         }
-        cartItems.push(item);
-        
-}
-if(num > 0) {
-    num = 0
-    
-  number.textContent = num;
-}
+      });
+    } else {
+      console.log("more than 1");
+    }
+    cartItems.push(item);
+  }
+  if (num > 0) {
+    num = 0;
 
-
+    number.textContent = num;
+    cart = num;
+  }
 });
 
 // Rendering the cart items when the user clicks on the cart button
@@ -222,22 +197,20 @@ const cart1 = document.createElement("h2");
 h1.classList.add("empty");
 cart1.classList.add("cart-1");
 
-cartButton.addEventListener('click', () => {
+cartButton.addEventListener("click", () => {
   if (cartItems.length <= 0) {
-    cart1.textContent= 'Cart';
-    h1.textContent = 'Your cart is empty';
+    cart1.textContent = "Cart";
+    h1.textContent = "Your cart is empty";
     cartContent.appendChild(h1);
-    cartContent.appendChild(cart1)
-    // cartContent.textContent = 'Your cart is empty';
-    cartContent.style.display = 'block';
+    cartContent.appendChild(cart1);
+    cartContent.style.display = "block";
   } else {
-    cartContent.textContent = '';
+    cartContent.textContent = "";
 
-    
-      cartItems.forEach((element) => {
-        const cartItem = document.createElement('div');
-        cartItem.classList.add('cart-item');
-        cartItem.innerHTML = `
+    cartItems.forEach((element) => {
+      const cartItem = document.createElement("div");
+      cartItem.classList.add("cart-item");
+      cartItem.innerHTML = `
 
           <h2>${element.name}</h2>
       
@@ -259,127 +232,90 @@ cartButton.addEventListener('click', () => {
          
           <button>${element.description}</button>
         `;
-        cartContent.appendChild(cartItem);
+      cartContent.appendChild(cartItem);
 
-        // Retrieve the cart items from local storage
-        const storedCartItems = JSON.parse(localStorage.getItem('cartItems'));
+      // Retrieve the cart items from local storage
+      const storedCartItems = JSON.parse(localStorage.getItem("cartItems"));
 
-        if (storedCartItems && storedCartItems.length > 0) {
-            cartItems = storedCartItems;
-        }
-        
-      });
-      
-      cartContent.style.display = 'block';
-    
-
-    const deleteButton = document.querySelectorAll('.delete');
-    deleteButton.forEach((deleteButton) => {
-    deleteButton.addEventListener('click',() => {
-    const cartItem = deleteButton.closest('.cart-item');
-    cartItem.remove();
-    
-
-  
-    console.log(deleteButton );
-    const cartContent = document.querySelector(".cart-content");
+      if (storedCartItems && storedCartItems.length > 0) {
+        cartItems = storedCartItems;
+      }
+    });
 
     cartContent.style.display = "block";
-    const h4 = document.createElement("h4");
-    const cart2 = document.createElement("h3");
-    const hr = document.createElement("hr")
-    hr.classList.add("cart-hr");
-    h4.classList.add("empty1");
-    cart2.classList.add("cart-2");
-    cart2.textContent= 'Cart';
-    h4.textContent = 'Your cart is empty';
-    cartContent.appendChild(hr);
-    cartContent.appendChild(h4);
-    cartContent.appendChild(cart2)
-    cartCount.style.display = "none";
 
-//      // Remove the item from the cartItems array
-//     const itemIndex = cartItems.findIndex((element) => element.title === item.title);
-//   if (itemIndex !== -1) {
-//     cartItems.splice(itemIndex, 1);
-//   }
+    const deleteButton = document.querySelectorAll(".delete");
+    deleteButton.forEach((deleteButton) => {
+      deleteButton.addEventListener("click", () => {
+        const cartItem = deleteButton.closest(".cart-item");
+        cartItem.remove();
 
-//   // Update the cart items in local storage
-//   localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        console.log(deleteButton);
+        const cartContent = document.querySelector(".cart-content");
 
+        cartContent.style.display = "block";
+        const h4 = document.createElement("h4");
+        const cart2 = document.createElement("h3");
+        const hr = document.createElement("hr");
+        hr.classList.add("cart-hr");
+        h4.classList.add("empty1");
+        cart2.classList.add("cart-2");
+        cart2.textContent = "Cart";
+        h4.textContent = "Your cart is empty";
+        cartContent.appendChild(hr);
+        cartContent.appendChild(h4);
+        cartContent.appendChild(cart2);
+        cartCount.style.display = "none";
 
-    cartItems = [];
-    cart -= num;
-    num = 0;
-    cartCount.textContent = cart;
+        cartItems = [];
+        cart -= num;
+        number.textContent = 0;
 
+        cartCount.textContent = cartItems.length;
 
-    cart1.style.display= "none";
-    h1.style.display = "none"
-    
-    
-    
-})
-})
-}
+        cart1.style.display = "none";
+        h1.style.display = "none";
+      });
+    });
+  }
 });
-
-
 
 let isCartOpen = false;
 
-cartButton.addEventListener('click', () => {
+cartButton.addEventListener("click", () => {
   if (isCartOpen) {
     // Cart is currently open, close it
-    cartContent.style.display = 'none';
+    cartContent.style.display = "none";
     isCartOpen = false;
   } else {
     // Cart is currently closed, open it
-    cartContent.style.display = 'block';
+    cartContent.style.display = "block";
     isCartOpen = true;
   }
 });
 
-
-window.addEventListener('click', (event) => {
-    const cartContent = document.querySelector('.cart-content');
-    if (event.target === cartContent) {
-        cartContent.style.display = "none";
-    }
-    
-  });
-
-
-
-
-
-// function updateCartCount() {
-//     const cartCountElement = document.querySelector('.cart-count');
-//     cartCountElement.textContent = cartCount;
-//     if (cartCount > 0) {
-//         cartCountElement.style.display = 'inline-block';
-//     }
-//     else {
-//         cartCountElement.style.display = 'none';
-//     }
-// }
+window.addEventListener("click", (event) => {
+  const cartContent = document.querySelector(".cart-content");
+  if (event.target === cartContent) {
+    cartContent.style.display = "none";
+  }
+});
 
 // mobile dievice menu-bar
-const open = document.querySelector('.mob-open');
-const close = document.querySelector('.mob-close');
-const tap = document.querySelector('.link-menu-tab');
+const open = document.querySelector(".mob-open");
+const close = document.querySelector(".mob-close");
+const tap = document.querySelector(".link-menu-tab");
 
-open.addEventListener('click',(e) =>{
+open.addEventListener("click", (e) => {
   e.preventDefault();
-  tap.style.display = 'block';
-  open.style.display = 'none';
-  close.style.display = 'flex';
-  
-})
+  tap.style.display = "block";
+  open.style.display = "none";
+  close.style.display = "flex";
+});
 
-close.addEventListener('click',(e) =>{
+close.addEventListener("click", (e) => {
   e.preventDefault();
-  tap.style.display = 'none';
-  open.style.display = 'flex';
-  close.style.display = 'none';
+  tap.style.display = "none";
+  open.style.display = "flex";
+  close.style.display = "none";
 });
